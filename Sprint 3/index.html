@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bone Fracture Detection</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            height: 100vh;
+            background: radial-gradient(circle, #0f2027, #203a43, #2c5364);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            z-index: 2;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 2;
+            position: relative;
+        }
+
+        form {
+            display: inline-block;
+            max-width: 100%;
+            width: 400px;
+        }
+
+        label {
+            font-size: 1.2rem;
+            color: #fff;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            display: inline-block;
+            width: 100%;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #1effa6;
+            border: none;
+            padding: 12px 25px;
+            color: #000;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #17e092;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(1);
+        }
+
+        /* Futuristic Tech Background */
+        .tech-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            background: radial-gradient(circle, rgba(0,0,0,0.2), transparent 60%);
+            overflow: hidden;
+        }
+
+        /* Rotating Grid Elements */
+        .tech-background .tech-line {
+            position: absolute;
+            width: 2px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.2);
+            animation: rotate 15s linear infinite;
+        }
+
+        .tech-background .tech-line:nth-child(odd) {
+            height: 120px;
+            animation-duration: 20s;
+        }
+
+        .tech-background .tech-line:nth-child(even) {
+            height: 180px;
+            animation-duration: 10s;
+        }
+
+        .tech-background .tech-line:nth-child(1) { left: 5%; top: 10%; }
+        .tech-background .tech-line:nth-child(2) { left: 15%; top: 25%; }
+        .tech-background .tech-line:nth-child(3) { left: 30%; top: 50%; }
+        .tech-background .tech-line:nth-child(4) { left: 50%; top: 35%; }
+        .tech-background .tech-line:nth-child(5) { left: 70%; top: 20%; }
+        .tech-background .tech-line:nth-child(6) { left: 85%; top: 70%; }
+        .tech-background .tech-line:nth-child(7) { left: 65%; top: 80%; }
+        .tech-background .tech-line:nth-child(8) { left: 45%; top: 60%; }
+
+        /* Rotate animation */
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg) translateY(0);
+                opacity: 0.6;
+            }
+            50% {
+                transform: rotate(180deg) translateY(15px);
+                opacity: 0.2;
+            }
+            100% {
+                transform: rotate(360deg) translateY(0);
+                opacity: 0.6;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bone Fracture Detection</h1>
+        <p>Upload an X-ray image to detect if it's fractured or non-fractured.</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            <label for="file">Select X-ray image:</label>
+            <input type="file" id="file" name="file" accept="image/*" aria-label="Upload an X-ray image" required>
+            <br>
+            <button type="submit">Upload and Predict</button>
+        </form>
+    </div>
+
+    <!-- Futuristic Tech Background -->
+    <div class="tech-background">
+        <div class="tech-line"></div>
+        <div class="tech-line"></div>
+        <div class="tech-line"></div>
+        <div class="tech-line"></div>
+        <div class="tech-line"></div>
+        <div class="tech-line"></div>
+        <div class="tech-line"></div>
+        <div class="tech-line"></div>
+    </div>
+</body>
+</html>
