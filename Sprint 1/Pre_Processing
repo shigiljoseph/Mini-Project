@@ -1,0 +1,90 @@
+
+#Resizing Images
+
+
+import os
+from PIL import Image
+
+def resize_and_copy_images(input_dir, output_dir, target_size=(260, 260)):
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)  # Create output directory if it doesn't exist
+
+    supported_formats = ('.png', '.jpg', '.jpeg')
+    errors = []
+
+    for filename in os.listdir(input_dir):
+        if filename.lower().endswith(supported_formats):
+            img_path = os.path.join(input_dir, filename)
+            output_path = os.path.join(output_dir, filename)
+
+            try:
+                img = Image.open(img_path)
+
+                # Convert images to RGB if they are in a different mode
+                if img.mode in ('RGBA', 'P'):
+                    img = img.convert('RGB')
+
+                img_resized = img.resize(target_size)  # Resize image
+                img_resized.save(output_path)  # Save resized image to output directory
+                print(f"Resized and copied: {filename}")
+
+            except Exception as e:
+                errors.append((filename, str(e)))
+                print(f"Error processing {filename}: {e}")
+
+    if errors:
+        print("Some images were not processed due to errors:")
+        for error in errors:
+            print(error)
+    else:
+        print("All images resized and copied successfully.")
+
+# Define input and output directories
+input_dir = 'fracture'  # Replace with your input directory
+output_dir = 'd/train/fr'  # Replace with your output directory
+
+# Call the function to resize and copy images
+resize_and_copy_images(input_dir, output_dir, target_size=(260, 260))
+
+
+
+
+
+#Augmentation
+
+
+import os
+import numpy as np
+from tensorflow.keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
+
+# Define paths
+original_data_dir = 'path/to/your/images'  # Path to your original images
+augmented_data_dir = 'path/to/save/augmented/images'  # Path to save augmented images
+
+# Create the augmented data directory if it doesn't exist
+os.makedirs(augmented_data_dir, exist_ok=True)
+
+# Initialize ImageDataGenerator with desired augmentations
+datagen = ImageDataGenerator(
+    rotation_range=30,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    shear_range=0.2,
+    zoom_range=0.2,
+    horizontal_flip=True,
+    fill_mode='nearest'
+)
+
+# Load and augment images
+for filename in os.listdir(original_data_dir):
+    if filename.endswith('.jpg') or filename.endswith('.png'):
+        img_path = os.path.join(original_data_dir, filename)
+        img = load_img(img_path)
+        x = img_to_array(img)
+        x = np.expand_dims(x, axis=0)
+
+        # Generate and save exactly 5 augmented images
+        for i, batch in enumerate(datagen.flow(x, batch_size=1, save_to_dir=augmented_data_dir,
+                                               save_prefix='aug_' + filename.split('.')[0], save_format='jpeg')):
+            if i >= 5:  # Stop after generating 5 copies
+                break
